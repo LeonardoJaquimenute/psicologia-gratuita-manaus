@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Lista de lugares com atendimento psicológico gratuito em Manaus, com endereço, mapa e telefone.">
+<meta property="og:title" content="Atendimento psicológico gratuito em Manaus">
+<meta property="og:description" content="Lista de lugares com atendimento psicológico gratuito em Manaus, com endereço, mapa e telefone.">
+<meta property="og:type" content="website">
+<title>Psicologia Gratuita Manaus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bitter:wght@600;700&display=swap">
+<style>
+/* Layout: uma coluna para celular, lida de cima a baixo. Faixa "encontro das águas" no topo,
+   aviso de ajuda imediata, atalhos para os grupos, cartões por local. */
+:root {
+  color-scheme: light;
+  --bg: #F2F5F3;
+  --surface: #FFFFFF;
+  --ink: #13302B;
+  --muted: #4B635E;
+  --line: #D3DFDA;
+  --accent: #1B6A58;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #DDEEE7;
+  --negro: #2B2117;
+  --sand: #C08A36;
+  --warm: #F6E9D2;
+  --warm-ink: #5A3D10;
+  --font-display: "Bitter", Georgia, "Times New Roman", serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1917; --surface: #15231F; --ink: #E3EDE9; --muted: #9CB2AC; --line: #284039;
+    --accent: #63C3A7; --accent-ink: #082019; --accent-soft: #163A30;
+    --negro: #6B5138; --sand: #D9A957; --warm: #2E2414; --warm-ink: #F1D9AE;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1917; --surface: #15231F; --ink: #E3EDE9; --muted: #9CB2AC; --line: #284039;
+  --accent: #63C3A7; --accent-ink: #082019; --accent-soft: #163A30;
+  --negro: #6B5138; --sand: #D9A957; --warm: #2E2414; --warm-ink: #F1D9AE;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.5;
+}
+.waters {
+  height: 6px;
+  background: linear-gradient(90deg, var(--negro) 0 46%, var(--sand) 54% 100%);
+}
+.wrap {
+  max-width: 40rem; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 1.75rem 3rem;
+  display: flex; flex-direction: column; gap: 1.75rem;
+}
+header { display: flex; flex-direction: column; gap: .5rem; }
+.eyebrow {
+  margin: 0; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--accent);
+}
+h1 {
+  margin: 0; font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.9rem, 7vw, 2.5rem); line-height: 1.1; text-wrap: balance;
+}
+.lede { margin: 0; color: var(--muted); max-width: 34rem; }
+
+.urgent {
+  background: var(--warm); color: var(--warm-ink);
+  border-radius: 12px; padding: 1rem 1.1rem;
+  display: flex; flex-direction: column; gap: .35rem;
+}
+.urgent p { margin: 0; }
+.urgent .big { font-weight: 700; font-size: 1.1rem; }
+.urgent .num { color: inherit; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+nav.jump { display: flex; flex-wrap: wrap; gap: .5rem; }
+nav.jump a {
+  text-decoration: none; color: var(--accent); background: var(--accent-soft);
+  padding: .45rem .8rem; border-radius: 999px; font-weight: 700; font-size: .92rem;
+}
+nav.jump a:hover { text-decoration: underline; }
+
+section { display: flex; flex-direction: column; gap: .9rem; scroll-margin-top: 1rem; }
+h2 {
+  margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.35rem;
+  display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; text-wrap: balance;
+}
+h2 .count { font-family: var(--font-body); font-weight: 400; font-size: .92rem; color: var(--muted); }
+.sec-note { margin: -.4rem 0 0; color: var(--muted); font-size: .95rem; }
+
+.list { display: flex; flex-direction: column; gap: .75rem; }
+.place {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .55rem; min-width: 0;
+}
+.place h3 { margin: 0; font-size: 1.1rem; line-height: 1.3; text-wrap: balance; }
+.place p { margin: 0; }
+.sub { color: var(--muted); margin-top: -.35rem !important; }
+.when { display: flex; align-items: center; gap: .5rem; font-weight: 700; color: var(--accent); }
+.dot { width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; flex: none; }
+.addr { display: flex; flex-direction: column; gap: .1rem; }
+.ref { color: var(--muted); font-size: .95rem; }
+.notes { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .25rem; font-size: .97rem; }
+.bring { font-size: .97rem; }
+
+.contact {
+  display: flex; flex-direction: column; gap: .5rem;
+  border-top: 1px solid var(--line); padding-top: .7rem; margin-top: .15rem;
+}
+a.map {
+  display: inline-flex; align-items: center; gap: .4rem; align-self: flex-start;
+  color: var(--accent); font-weight: 700; text-decoration: none;
+}
+a.map:hover { text-decoration: underline; }
+a.map svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 2; }
+.phone { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem .6rem; }
+.phone .num {
+  color: var(--ink); font-weight: 700; font-size: 1.12rem; text-decoration: none;
+  font-variant-numeric: tabular-nums; user-select: all;
+}
+.ramal { color: var(--muted); font-size: .95rem; }
+button.copy {
+  margin-left: auto; font: inherit; font-size: .88rem; font-weight: 700;
+  color: var(--accent); background: transparent; border: 1.5px solid var(--accent);
+  border-radius: 999px; padding: .25rem .8rem; cursor: pointer;
+}
+button.copy.done { background: var(--accent); color: var(--accent-ink); }
+.nophone { color: var(--muted); font-size: .95rem; }
+
+.churches { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.churches li { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .4rem 1rem; padding: .85rem 1.1rem; }
+.churches li + li { border-top: 1px solid var(--line); }
+.churches span { font-weight: 700; }
+a.map.small { font-size: .95rem; }
+
+.meds { background: var(--accent-soft); border-radius: 12px; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .6rem; }
+.meds p { margin: 0; }
+.meds ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .2rem; }
+
+footer { border-top: 1px solid var(--line); padding-top: 1rem; color: var(--muted); font-size: .95rem; display: flex; flex-direction: column; gap: .4rem; }
+footer p { margin: 0; }
+footer strong { color: var(--ink); }
+
+a:focus-visible, button:focus-visible { outline: 3px solid var(--sand); outline-offset: 2px; border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+body { margin: 0; }
+</style>
+</head>
+<body>
+<div class="waters" aria-hidden="true"></div>
+<main class="wrap">
+  <header>
+    <p class="eyebrow">Manaus · AM</p>
+    <h1>Atendimento psicológico gratuito</h1>
+    <p class="lede">Lugares em Manaus que oferecem psicólogo de graça. Toque no endereço para abrir o mapa. Ligue antes de ir, porque dias e horários podem mudar.</p>
+  </header>
+
+  <div class="urgent" role="note">
+    <p class="big">Precisa conversar agora?</p>
+    <p>CVV: ligue <a class="num" href="tel:188">188</a>. Gratuito, 24 horas, todos os dias.</p>
+    <p>Em emergência: SAMU <a class="num" href="tel:192">192</a>.</p>
+  </div>
+
+  <nav class="jump" aria-label="Ir para">
+    <a href="#publicos">Rede pública</a>
+    <a href="#faculdades">Faculdades</a>
+    <a href="#igrejas">Igrejas</a>
+    <a href="#remedios">Remédios</a>
+  </nav>
+
+  <section id="publicos">
+    <h2>Rede pública <span class="count">4 locais</span></h2>
+    <div class="list">
+<article class="place">
+<h3>Policlínica Gilberto Mestrinho</h3>
+<p class="when"><span class="dot" aria-hidden="true"></span>Manhã e tarde, com agendamento</p>
+<div class="addr">
+<p>Av. Getúlio Vargas, 341 – Centro</p>
+</div>
+<ul class="notes"><li>Agendamento direto com os psicólogos.</li><li>Manhã: psicóloga que atende adultos. Tarde: psicóloga que atende crianças e adolescentes.</li><li>Uma psicóloga é exclusiva do programa AD. Outros dois atendem demais demandas, somente adultos.</li></ul>
+<p class="bring"><strong>Levar:</strong> Cartão SUS e documento de identificação com foto.</p>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Av.+Get%C3%BAlio+Vargas%2C+341%2C+Centro%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Ver no mapa</a>
+<div class="phone"><a class="num" href="tel:+559231988000">(92) 3198-8000</a><button type="button" class="copy" id="f0-0" data-copy="(92) 3198-8000">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>PAM Codajás</h3>
+<p class="sub">Triagem psicológica e atendimento</p>
+<p class="when"><span class="dot" aria-hidden="true"></span>Seg e qua às 7h · Sex às 12h</p>
+<ul class="notes"><li>6 pessoas por dia. Chegue cedo.</li></ul>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=PAM+Codaj%C3%A1s+Manaus" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Procurar no mapa</a>
+</div>
+</article>
+<article class="place">
+<h3>CAC – Centro de Atendimento ao Cidadão</h3>
+<p class="when"><span class="dot" aria-hidden="true"></span>Segunda, quarta e quinta</p>
+<div class="addr">
+<p>Rua Tamoios, 26 – Cidade Nova 1</p>
+<p class="ref">Próximo à Escola Aslan</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Rua+Tamoios%2C+26%2C+Cidade+Nova%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Ver no mapa</a>
+<div class="phone"><a class="num" href="tel:+5592993062121">(92) 99306-2121</a><button type="button" class="copy" id="f2-0" data-copy="(92) 99306-2121">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>UBS Nilton Lins</h3>
+<div class="addr">
+<p>Dentro do Complexo Universitário Nilton Lins</p>
+<p class="ref">Atrás do Hospital da Nilton Lins</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=UBS+Nilton+Lins+Manaus" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Procurar no mapa</a>
+<p class="nophone">Não tem telefone. É preciso ir pessoalmente.</p>
+</div>
+</article>
+    </div>
+  </section>
+
+  <section id="faculdades">
+    <h2>Clínicas-escola de faculdades <span class="count">7 locais</span></h2>
+    <p class="sec-note">Atendimento feito por estudantes de psicologia com supervisão de professores.</p>
+    <div class="list">
+<article class="place">
+<h3>Clínica Escola de Psicologia UNINORTE</h3>
+<div class="addr">
+<p>Av. Getúlio Vargas, 720 – Centro</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Av.+Get%C3%BAlio+Vargas%2C+720%2C+Centro%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Ver no mapa</a>
+<div class="phone"><a class="num" href="tel:+559232125169">(92) 3212-5169</a><button type="button" class="copy" id="f4-0" data-copy="(92) 3212-5169">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>Clínica Escola de Psicologia ESBAM</h3>
+<div class="addr">
+<p>Rua Leonor Teles, 153, Conj. Abílio Nery – Adrianópolis</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Rua+Leonor+Teles%2C+153%2C+Adrian%C3%B3polis%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Ver no mapa</a>
+<div class="phone"><a class="num" href="tel:+559233051809">(92) 3305-1809</a><button type="button" class="copy" id="f5-0" data-copy="(92) 3305-1809">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>Clínica Escola de Psicologia FAMETRO</h3>
+<div class="addr">
+<p>Av. Constantino Nery, 3378 – Chapada</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Av.+Constantino+Nery%2C+3378%2C+Chapada%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Ver no mapa</a>
+<div class="phone"><a class="num" href="tel:+5592984230823">(92) 98423-0823</a><button type="button" class="copy" id="f6-0" data-copy="(92) 98423-0823">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>Serviço de Psicologia Aplicada UFAM – CSPA</h3>
+<div class="addr">
+<p>Setor Sul da UFAM (minicampus), Bloco X – Coroado I</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Setor+Sul+UFAM%2C+Coroado%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Procurar no mapa</a>
+<div class="phone"><a class="num" href="tel:+559233051181">(92) 3305-1181</a> <span class="ramal">ramal 2582</span><button type="button" class="copy" id="f7-0" data-copy="(92) 3305-1181">Copiar</button></div>
+<div class="phone"><a class="num" href="tel:+559233054121">(92) 3305-4121</a><button type="button" class="copy" id="f7-1" data-copy="(92) 3305-4121">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>Serviço de Psicologia Aplicada ULBRA – SPA</h3>
+<div class="addr">
+<p>Av. Carlos Drummond de Andrade, 1460, Bloco E, Térreo – Conj. Atílio Andreazza</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=ULBRA+Av.+Carlos+Drummond+de+Andrade%2C+1460%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Ver no mapa</a>
+<div class="phone"><a class="num" href="tel:+559236169800">(92) 3616-9800</a> <span class="ramal">ramal 9819</span><button type="button" class="copy" id="f8-0" data-copy="(92) 3616-9800">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>Centro de Atendimento Psicológico FMF – CAPSI</h3>
+<div class="addr">
+<p>Rua Natal, 300 – Adrianópolis</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Rua+Natal%2C+300%2C+Adrian%C3%B3polis%2C+Manaus+-+AM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Ver no mapa</a>
+<div class="phone"><a class="num" href="tel:+559221210966">(92) 2121-0966</a><button type="button" class="copy" id="f9-0" data-copy="(92) 2121-0966">Copiar</button></div>
+</div>
+</article>
+<article class="place">
+<h3>Universidade Nilton Lins – SEPA</h3>
+<p class="sub">Serviço de Psicologia Aplicada</p>
+<div class="addr">
+<p>Dentro da Universidade Nilton Lins</p>
+</div>
+<div class="contact">
+<a class="map" href="https://www.google.com/maps/search/?api=1&query=Universidade+Nilton+Lins+Manaus" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>Procurar no mapa</a>
+</div>
+</article>
+    </div>
+  </section>
+
+  <section id="igrejas">
+    <h2>Igrejas <span class="count">3 locais</span></h2>
+    <p class="sec-note">Confirme dias e horários direto na igreja.</p>
+    <ul class="churches">
+<li><span>Aparecida</span><a class="map small" href="https://www.google.com/maps/search/?api=1&query=Igreja+Nossa+Senhora+Aparecida+Manaus" target="_blank" rel="noopener">Procurar no mapa</a></li>
+<li><span>São José Operário</span><a class="map small" href="https://www.google.com/maps/search/?api=1&query=Igreja+S%C3%A3o+Jos%C3%A9+Oper%C3%A1rio+Manaus" target="_blank" rel="noopener">Procurar no mapa</a></li>
+<li><span>Sagrada Família</span><a class="map small" href="https://www.google.com/maps/search/?api=1&query=Igreja+Sagrada+Fam%C3%ADlia+Manaus" target="_blank" rel="noopener">Procurar no mapa</a></li>
+    </ul>
+  </section>
+
+  <section id="remedios">
+    <h2>Se precisar de remédio</h2>
+    <div class="meds">
+      <p>Se a pessoa for encaminhada a um psiquiatra e precisar de medicação, boa parte dos remédios para depressão é fornecida pelo Estado e pelo Município, nas UBS e Policlínicas que têm farmacêutico.</p>
+      <p><strong>Para retirar, leve:</strong></p>
+      <ul>
+        <li>Receita médica e uma cópia</li>
+        <li>Cartão SUS</li>
+        <li>Documento de identificação com foto</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>Divulgação: <strong>Casa do Psicólogo</strong> · <span style="font-variant-numeric: tabular-nums">(92) 3233-5224</span></p>
+    <p>A finalidade desta lista é ajudar, com informação, quem precisa de atendimento psicológico gratuito em Manaus. Compartilhe.</p>
+  </footer>
+</main>
+
+<script>
+document.querySelectorAll('button.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var text = btn.getAttribute('data-copy');
+    function ok() {
+      btn.textContent = 'Copiado';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('done'); }, 1800);
+    }
+    function fallback() {
+      var num = btn.parentNode.querySelector('.num');
+      if (!num) return;
+      var r = document.createRange(); r.selectNodeContents(num);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selecionado';
+      setTimeout(function () { btn.textContent = 'Copiar'; }, 1800);
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(ok, fallback);
+      } else { fallback(); }
+    } catch (err) { fallback(); }
+  });
+});
+</script>
+</body>
+</html>
